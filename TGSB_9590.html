@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUGAS 8 9590</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="vue.js"></script>
+    <br>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="app">
+        <h1 class="" style="text-align: center;">To do List</h1>
+        <div class="card">
+          <h2 style="text-align: center;">Create Todo</h2>
+
+          <div class="flex">
+            <input v-model="newItem" @keyup.enter="addItem" placeholder="Add new todo - Name" />
+          </div>
+
+          <div class="flex">
+            <select  v-model="newPriority" @keyup.enter="addItem">
+              <option value="" selected>Add new todo - Priority</option>
+              <option value="Penting">Penting</option>
+              <option value="Biasa">Biasa</option>
+              <option value="Tidak Penting">Tidak Penting</option>
+            </select>
+          </div>
+
+          <div class="flex">
+            <input v-model="newDesc" @keyup.enter="addItem" placeholder="Add new todo - Descciption" />
+          </div>
+
+          <div class="flex">
+            <button @click="addItem" class="add"
+            :disabled="newItem.length === 0 || newPriority.length === 0 || newDesc.length === 0" 
+            style="width: 100%;">+ Add New Task +</button>          
+          </div>
+
+          <div class="flex">
+            <button @click="resetItem" class="resest"
+            :disabled="newItem.length === 0 && newPriority.length === 0 && newDesc.length === 0"
+            style="width: 100%;">x Reset Input x</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <h2 style="text-align: center;">My Todo List</h2>
+            <ul class="list">
+              <li class="list-item" :class="{completed: item.completed}" v-for="item in reversedItems">
+                <div class="list-item-toggle" @click="toggleCompleted(item)"></div>
+
+                <p>
+                  <span>
+                    <font size="5" v-if="item.priority == 'Penting'" style="color: red !important">
+                      ❗ {{ item.name }} -- {{ item.priority }}
+                    </font>
+                  </span>
+                  
+                  <span>
+                    <font size="5" v-if="item.priority == 'Biasa'" style="color: blue !important">
+                      🔵 {{ item.name }} -- {{ item.priority }}
+                    </font>
+                  </span>
+                  
+                  <span>
+                    <font size="5" v-if="item.priority == 'Tidak Penting'" style="color: green !important">
+                      🟢 {{ item.name }} -- {{ item.priority }}
+                    </font></span><br><br>
+
+                  <span>Deskrripsi : {{ item.desc }}</span>
+                  </p>
+
+                <div class="list-item-delete" @click="removeItem(item)">X</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>{{mhs.nama}} | {{mhs.npm}} | {{mhs.kelas}}</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
